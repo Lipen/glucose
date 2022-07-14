@@ -54,3 +54,26 @@ target_link_libraries(glucose-simp glucose)
 add_library(glucosep ${lib_type} ${lib_srcs} ${lib_parallel_srcs})
 add_executable(glucose-syrup ${main_parallel})
 target_link_libraries(glucose-syrup glucosep ${CMAKE_THREAD_LIBS_INIT})
+
+if(MINGW)
+  # Install only 'glucose' target
+  install(TARGETS glucose DESTINATION lib)
+else()
+  # Install binaries
+  install(TARGETS glucose-simp DESTINATION bin)
+  install(TARGETS glucose-syrup DESTINATION bin)
+  # Install libraries
+  install(TARGETS glucose DESTINATION lib)
+  install(TARGETS glucosep DESTINATION lib)
+endif()
+# Install headers
+file(GLOB HEADERS_CORE core/*.h)
+file(GLOB HEADERS_MTL mtl/*.h)
+file(GLOB HEADERS_SIMP simp/*.h)
+file(GLOB HEADERS_PARALLEL parallel/*.h)
+file(GLOB HEADERS_UTILS utils/*.h)
+install(FILES ${HEADERS_CORE} DESTINATION include/${PROJECT_NAME}/core)
+install(FILES ${HEADERS_MTL} DESTINATION include/${PROJECT_NAME}/mtl)
+install(FILES ${HEADERS_PARALLEL} DESTINATION include/${PROJECT_NAME}/parallel)
+install(FILES ${HEADERS_SIMP} DESTINATION include/${PROJECT_NAME}/simp)
+install(FILES ${HEADERS_UTILS} DESTINATION include/${PROJECT_NAME}/utils)
