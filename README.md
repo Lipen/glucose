@@ -1,21 +1,18 @@
 # Glucose SAT Solver
 
-This repository mirrors the [Glucose project](https://www.labri.fr/perso/lsimon/glucose/)
-on GitHub.
+This repository mirrors the [Glucose project](https://www.labri.fr/perso/lsimon/glucose/) on GitHub.
 
-The original instructions for building the software are 
-in `README`.
+The original instructions for building the software are in `README`.
 
 ## Dependencies
 
 ### CMake
 
-Differently from the original source code, we use [CMake](https://cmake.org/)
-as a build tool.
+Differently from the original source code, we use [CMake](https://cmake.org/) as a build tool.
 
 On Ubuntu:
 
-```bash
+```shell
 sudo apt-get install cmake
 ```
 
@@ -25,7 +22,7 @@ Glucose depends on [zlib](https://zlib.net/).
 
 On Ubuntu:
 
-```bash
+```shell
 sudo apt-get install zlib-dev
 ```
 
@@ -33,15 +30,13 @@ sudo apt-get install zlib-dev
 
 To build the software, run the following commands:
 
-```bash
-mkdir build && cd build
-cmake ..
-make -j
+```shell
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+sudo cmake --install build --strip --prefix install
 ```
 
 The produced artifacts will be:
-- `libglucose.a` and `libglucosep.a`: the static libraries
-   for the simple and parallel version of the SAT solver, respectively.
-- `glucose-simp` and `glucose-syrup`: the binaries 
-   for the simple and parallel version of the SAT solver, respectively.
 
+- `libglucose.a` and `libglucosep.a`: the static libraries for the simple and parallel version of the SAT solver, respectively.
+- `glucose-simp` and `glucose-syrup`: the binaries for the simple and parallel version of the SAT solver, respectively.
