@@ -58,6 +58,10 @@ static inline double Glucose::cpuTime(void) {
 
 #endif
 
+#if defined(__MINGW32__)
+#include <sys/time.h>
+#endif
+
 // Laurent: I know that this will not compile directly under Windows... sorry for that
 static inline double Glucose::realTime() {
     struct timeval tv;
