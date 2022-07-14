@@ -50,4 +50,3 @@ target_link_libraries(glucose-simp glucose)
 add_library(glucosep ${lib_type} ${lib_srcs} ${lib_parallel_srcs})
 add_executable(glucose-syrup ${main_parallel})
 target_link_libraries(glucose-syrup glucosep ${CMAKE_THREAD_LIBS_INIT})
-

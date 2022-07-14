@@ -68,7 +68,7 @@ static inline int memReadPeak(void)
 }
 
 double Glucose::memUsed() { return (double)memReadStat(0) * (double)getpagesize() / (1024*1024); }
-double Glucose::memUsedPeak() { 
+double Glucose::memUsedPeak() {
     double peak = memReadPeak() / 1024;
     return peak == 0 ? memUsed() : peak; }
 
@@ -90,6 +90,6 @@ double Glucose::memUsed(void) {
     return (double)t.max_size_in_use / (1024*1024); }
 
 #else
-double Glucose::memUsed() { 
+double Glucose::memUsed() {
     return 0; }
 #endif

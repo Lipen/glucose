@@ -9,19 +9,19 @@
                                 Labri - Univ. Bordeaux, France
 
 Glucose sources are based on MiniSat (see below MiniSat copyrights). Permissions and copyrights of
-Glucose (sources until 2013, Glucose 3.0, single core) are exactly the same as Minisat on which it 
+Glucose (sources until 2013, Glucose 3.0, single core) are exactly the same as Minisat on which it
 is based on. (see below).
 
 Glucose-Syrup sources are based on another copyright. Permissions and copyrights for the parallel
 version of Glucose-Syrup (the "Software") are granted, free of charge, to deal with the Software
 without restriction, including the rights to use, copy, modify, merge, publish, distribute,
-sublicence, and/or sell copies of the Software, and to permit persons to whom the Software is 
+sublicence, and/or sell copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
 - The above and below copyrights notices and this permission notice shall be included in all
 copies or substantial portions of the Software;
 - The parallel version of Glucose (all files modified since Glucose 3.0 releases, 2013) cannot
-be used in any competitive event (sat competitions/evaluations) without the express permission of 
+be used in any competitive event (sat competitions/evaluations) without the express permission of
 the authors (Gilles Audemard / Laurent Simon). This is also the case for any competitive event
 using Glucose Parallel as an embedded SAT engine (single core or not).
 
@@ -61,12 +61,12 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 
 namespace Glucose {
-// Core stats 
-    
+// Core stats
+
 enum CoreStats {
   sumResSeen,
   sumRes,
-  sumTrail,  
+  sumTrail,
   nbPromoted,
   originalClausesSeen,
   sumDecisionLevels,
@@ -104,24 +104,24 @@ public:
     //
     Solver();
     Solver(const  Solver &s);
-    
+
     virtual ~Solver();
-    
+
     /**
      * Clone function
      */
     virtual Clone* clone() const {
         return  new Solver(*this);
-    }   
+    }
 
     // Problem specification:
     //
     virtual Var     newVar    (bool polarity = true, bool dvar = true); // Add a new variable with parameters specifying variable mode.
-    bool    addClause (const vec<Lit>& ps);                     // Add a clause to the solver. 
+    bool    addClause (const vec<Lit>& ps);                     // Add a clause to the solver.
     bool    addEmptyClause();                                   // Add the empty clause, making the solver contradictory.
-    bool    addClause (Lit p);                                  // Add a unit clause to the solver. 
-    bool    addClause (Lit p, Lit q);                           // Add a binary clause to the solver. 
-    bool    addClause (Lit p, Lit q, Lit r);                    // Add a ternary clause to the solver. 
+    bool    addClause (Lit p);                                  // Add a unit clause to the solver.
+    bool    addClause (Lit p, Lit q);                           // Add a binary clause to the solver.
+    bool    addClause (Lit p, Lit q, Lit r);                    // Add a ternary clause to the solver.
     virtual bool    addClause_(      vec<Lit>& ps);                     // Add a clause to the solver without making superflous internal copy. Will
                                                                 // change the passed vector 'ps'.
     // Solving:
@@ -143,14 +143,14 @@ public:
     void    toDimacs     (const char* file, Lit p);
     void    toDimacs     (const char* file, Lit p, Lit q);
     void    toDimacs     (const char* file, Lit p, Lit q, Lit r);
- 
+
     // Display clauses and literals
     void printLit(Lit l);
     void printClause(CRef c);
     void printInitialClause(CRef c);
-    
+
     // Variable mode:
-    // 
+    //
     void    setPolarity    (Var v, bool b); // Declare which polarity the decision heuristic should use for a variable. Requires mode 'polarity_user'.
     void    setDecisionVar (Var v, bool b); // Declare if a variable should be eligible for selection in the decision heuristic.
 
@@ -198,7 +198,7 @@ public:
     int       verbosity;
     int       verbEveryConflicts;
     int       showModel;
-    
+
     // Constants For restarts
     double    K;
     double    R;
@@ -228,7 +228,7 @@ public:
     bool      rnd_init_act;       // Initialize variable activities with a small random value.
     bool      randomizeFirstDescent; // the first decisions (until first cnflict) are made randomly
                                      // Useful for syrup!
-    
+
     // Constant for Memory managment
     double    garbage_frac;       // The fraction of wasted memory allowed before a garbage collection is triggered.
 
@@ -242,15 +242,15 @@ public:
     void write_lit (int n);
 
 
-    // Panic mode. 
+    // Panic mode.
     // Save memory
     uint32_t panicModeLastRemoved, panicModeLastRemovedShared;
-    
+
     bool useUnaryWatched;            // Enable unary watched literals
     bool promoteOneWatchedClause;    // One watched clauses are promotted to two watched clauses if found empty
-    
+
     // Functions useful for multithread solving
-    // Useless in the sequential case 
+    // Useless in the sequential case
     // Overide in ParallelSolver
     virtual void parallelImportClauseDuringConflictAnalysis(Clause &c,CRef confl);
     virtual bool parallelImportClauses(); // true if the empty clause was received
@@ -259,13 +259,13 @@ public:
     virtual void parallelExportClauseDuringSearch(Clause &c);
     virtual bool parallelJobIsFinished();
     virtual bool panicModeIsEnabled();
-    
-    
+
+
     double luby(double y, int x);
-    
-    // Statistics 
+
+    // Statistics
     vec<uint64_t> stats;
-    
+
     // Important stats completely related to search. Keep here
     uint64_t solves,starts,decisions,propagations,conflicts,conflictsRestarts;
 
@@ -351,15 +351,15 @@ protected:
     double              progress_estimate;// Set by 'search()'.
     bool                remove_satisfied; // Indicates whether possibly inefficient linear scan for satisfied clauses should be performed in 'simplify'.
     vec<unsigned int>   permDiff;           // permDiff[var] contains the current conflict number... Used to count the number of  LBD
-    
+
 
     // UPDATEVARACTIVITY trick (see competition'09 companion paper)
-    vec<Lit> lastDecisionLevel; 
+    vec<Lit> lastDecisionLevel;
 
     ClauseAllocator     ca;
 
     int nbclausesbeforereduce;            // To know when it is time to reduce clause database
-    
+
     // Used for restart strategies
     bqueue<unsigned int> trailQueue,lbdQueue; // Bounded queues for restarts.
     float sumLBD; // used to compute the global average of LBD. Restarts...
@@ -507,12 +507,12 @@ inline bool     Solver::addEmptyClause  ()                      { add_tmp.clear(
 inline bool     Solver::addClause       (Lit p)                 { add_tmp.clear(); add_tmp.push(p); return addClause_(add_tmp); }
 inline bool     Solver::addClause       (Lit p, Lit q)          { add_tmp.clear(); add_tmp.push(p); add_tmp.push(q); return addClause_(add_tmp); }
 inline bool     Solver::addClause       (Lit p, Lit q, Lit r)   { add_tmp.clear(); add_tmp.push(p); add_tmp.push(q); add_tmp.push(r); return addClause_(add_tmp); }
- inline bool     Solver::locked          (const Clause& c) const { 
-   if(c.size()>2) 
-     return value(c[0]) == l_True && reason(var(c[0])) != CRef_Undef && ca.lea(reason(var(c[0]))) == &c; 
-   return 
+ inline bool     Solver::locked          (const Clause& c) const {
+   if(c.size()>2)
+     return value(c[0]) == l_True && reason(var(c[0])) != CRef_Undef && ca.lea(reason(var(c[0]))) == &c;
+   return
      (value(c[0]) == l_True && reason(var(c[0])) != CRef_Undef && ca.lea(reason(var(c[0]))) == &c)
-     || 
+     ||
      (value(c[1]) == l_True && reason(var(c[1])) != CRef_Undef && ca.lea(reason(var(c[1]))) == &c);
  }
 inline void     Solver::newDecisionLevel()                      { trail_lim.push(trail.size()); }
@@ -527,12 +527,12 @@ inline int      Solver::nAssigns      ()      const   { return trail.size(); }
 inline int      Solver::nClauses      ()      const   { return clauses.size(); }
 inline int      Solver::nLearnts      ()      const   { return learnts.size(); }
 inline int      Solver::nVars         ()      const   { return vardata.size(); }
-inline int      Solver::nFreeVars     ()         { 
+inline int      Solver::nFreeVars     ()         {
     int a = stats[dec_vars];
     return (int)(a) - (trail_lim.size() == 0 ? trail.size() : trail_lim[0]); }
 inline void     Solver::setPolarity   (Var v, bool b) { polarity[v] = b; }
-inline void     Solver::setDecisionVar(Var v, bool b) 
-{ 
+inline void     Solver::setDecisionVar(Var v, bool b)
+{
     if      ( b && !decision[v]) stats[dec_vars]++;
     else if (!b &&  decision[v]) stats[dec_vars]--;
 
@@ -639,7 +639,7 @@ struct reduceDB_lt {
         return ca[x].activity() < ca[y].activity();
         //return x->size() < y->size();
 
-        //return ca[x].size() > 2 && (ca[y].size() == 2 || ca[x].activity() < ca[y].activity()); } 
+        //return ca[x].size() > 2 && (ca[y].size() == 2 || ca[x].activity() < ca[y].activity()); }
     }
 };
 
