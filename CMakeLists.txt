@@ -33,6 +33,10 @@ else()
   set(lib_type "STATIC")
 endif()
 
+if(MINGW)
+  set(CMAKE_SHARED_LIBRARY_PREFIX "")
+  set(CMAKE_STATIC_LIBRARY_PREFIX "")
+endif()
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
