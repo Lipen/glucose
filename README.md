@@ -43,7 +43,7 @@ To build the software, run the following commands:
   - `libglucose.a` and `libglucosep.a`: the static libraries for the simp and parallel version of the Glucose SAT solver, respectively.
   - `glucose-simp` and `glucose-syrup`: the binaries for the simp and parallel version of the Glucose SAT solver, respectively.
 
-* On Windows:
+* On Windows (MinGW):
 
   ```cmd
   cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -G "MinGW Makefiles"
