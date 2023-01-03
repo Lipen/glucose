@@ -6,7 +6,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -17,6 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup sccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          variant: sccache
+          key: ${{ github.job }}-${{ matrix.os }}
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -26,7 +32,42 @@ jobs:
         run: pip install meson ninja
 
       - name: Setup Meson build directory
-        run: meson setup builddir
+        run: meson setup builddir --buildtype release --strip
 
       - name: Build the project using Meson
         run: meson compile -C builddir -v
+
+      # OS-specific upload:
+
+      - name: Upload Linux package
+        if: startsWith(matrix.os, 'ubuntu')
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-${{ matrix.os }}
+          path: |
+            builddir/libglucose.so
+            builddir/libglucosep.so
+            builddir/glucose
+            builddir/glucose-syrup
+
+      - name: Upload Windows package
+        if: startsWith(matrix.os, 'windows')
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-${{ matrix.os }}
+          path: |
+            builddir/libglucose.dll
+            builddir/libglucosep.dll
+            builddir/glucose.exe
+            builddir/glucose-syrup.exe
+
+      - name: Upload macOS package
+        if: startsWith(matrix.os, 'macos')
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-${{ matrix.os }}
+          path: |
+            builddir/libglucose.dylib
+            builddir/libglucosep.dylib
+            builddir/glucose
+            builddir/glucose-syrup
