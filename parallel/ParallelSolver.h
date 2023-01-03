@@ -47,48 +47,48 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  **************************************************************************************************/
 
-#ifndef PARALLELSOLVER_H
-#define	PARALLELSOLVER_H
+#ifndef ParallelSolver_h
+#define ParallelSolver_h
 
-#include "core/SolverTypes.h"
 #include "core/Solver.h"
-#include "simp/SimpSolver.h"
+#include "core/SolverTypes.h"
 #include "parallel/SharedCompanion.h"
+#include "simp/SimpSolver.h"
 namespace Glucose {
 
-   enum ParallelStats{
-       nbexported=coreStatsSize,
-       nbimported,
-       nbexportedunit,
-       nbimportedunit,
-       nbimportedInPurgatory,
-       nbImportedGoodClauses
-   } ;
+enum ParallelStats {
+    nbexported = coreStatsSize,
+    nbimported,
+    nbexportedunit,
+    nbimportedunit,
+    nbimportedInPurgatory,
+    nbImportedGoodClauses
+};
 #define parallelStatsSize (coreStatsSize + 6)
 
 //=================================================================================================
-    //class MultiSolvers;
-    //class SolverCompanion;
- //   class MultiSolvers;
+// class MultiSolvers;
+// class SolverCompanion;
+//   class MultiSolvers;
 
 class ParallelSolver : public SimpSolver {
     friend class MultiSolvers;
     friend class SolverCompanion;
     friend class SharedCompanion;
-//    friend class ReasoningCompanion;
-//    friend class SolverConfiguration;
+    //    friend class ReasoningCompanion;
+    //    friend class SolverConfiguration;
 
-protected :
-          // Multithread :
-    int		thn; // internal thread number
-    //MultiSolvers* belongsto; // Not working (due to incomplete types)
+   protected:
+    // Multithread :
+    int thn;  // internal thread number
+    // MultiSolvers* belongsto; // Not working (due to incomplete types)
     SharedCompanion *sharedcomp;
-    bool coreFUIP; // true if one core is specialized for branching on all FUIP
+    bool coreFUIP;  // true if one core is specialized for branching on all FUIP
     bool ImTheSolverFUIP;
-    pthread_mutex_t *pmfinished; // mutex on which main process may wait for... As soon as one process finishes it release the mutex
-    pthread_cond_t *pcfinished; // condition variable that says that a thread as finished
+    pthread_mutex_t *pmfinished;  // mutex on which main process may wait for... As soon as one process finishes it release the mutex
+    pthread_cond_t *pcfinished;   // condition variable that says that a thread as finished
 
-public:
+   public:
     // Constructor/Destructor:
     //
     ParallelSolver(int threadId);
@@ -98,54 +98,49 @@ public:
     /**
      * Clone function
      */
-    virtual Clone* clone() const {
-        return  new ParallelSolver(*this);
+    virtual Clone *clone() const {
+        return new ParallelSolver(*this);
     }
 
-    int  threadNumber  ()      const;
-    void setThreadNumber (int i);
+    int threadNumber() const;
+    void setThreadNumber(int i);
     void reportProgress();
     void reportProgressArrayImports(vec<unsigned int> &totalColumns);
     virtual void reduceDB();
-    virtual lbool         solve_                   (bool do_simp = true, bool turn_off_simp = false);
+    virtual lbool solve_(bool do_simp = true, bool turn_off_simp = false);
 
-    vec<Lit>    importedClause; // Temporary clause used to copy each imported clause
-    unsigned int    goodlimitlbd; // LBD score of the "good" clauses, locally
-    int    goodlimitsize;
-    bool purgatory; // mode of operation
-    bool shareAfterProbation; // Share any none glue clause only after probation (seen 2 times in conflict analysis)
-    bool plingeling; // plingeling strategy for sharing clauses (experimental)
+    vec<Lit> importedClause;    // Temporary clause used to copy each imported clause
+    unsigned int goodlimitlbd;  // LBD score of the "good" clauses, locally
+    int goodlimitsize;
+    bool purgatory;            // mode of operation
+    bool shareAfterProbation;  // Share any none glue clause only after probation (seen 2 times in conflict analysis)
+    bool plingeling;           // plingeling strategy for sharing clauses (experimental)
     int nbTimesSeenBeforeExport;
     // Stats front end
-//    uint64_t   getNbExported() { return nbexported;}
- //   uint64_t   getNbImported() { return nbimported;}
- //   uint64_t   getNbExportedUnit() {return nbexportedunit;}
+    //    uint64_t   getNbExported() { return nbexported;}
+    //   uint64_t   getNbImported() { return nbimported;}
+    //   uint64_t   getNbExportedUnit() {return nbexportedunit;}
 
-    uint32_t  firstSharing, limitSharingByGoodLBD, limitSharingByFixedLimitLBD, limitSharingByFixedLimitSize;
-    uint32_t  probationByFollowingRoads, probationByFriend;
-    uint32_t  survivorLayers; // Number of layers for a common clause to survive
-    bool dontExportDirectReusedClauses ; // When true, directly reused clauses are not exported
+    uint32_t firstSharing, limitSharingByGoodLBD, limitSharingByFixedLimitLBD, limitSharingByFixedLimitSize;
+    uint32_t probationByFollowingRoads, probationByFriend;
+    uint32_t survivorLayers;             // Number of layers for a common clause to survive
+    bool dontExportDirectReusedClauses;  // When true, directly reused clauses are not exported
     uint64_t nbNotExportedBecauseDirectlyReused;
 
+    vec<uint32_t> goodImportsFromThreads;  // Stats of good importations from other threads
 
-    vec<uint32_t> goodImportsFromThreads; // Stats of good importations from other threads
-
-    virtual void parallelImportClauseDuringConflictAnalysis(Clause &c,CRef confl);
-    virtual bool parallelImportClauses(); // true if the empty clause was received
+    virtual void parallelImportClauseDuringConflictAnalysis(Clause &c, CRef confl);
+    virtual bool parallelImportClauses();  // true if the empty clause was received
     virtual void parallelImportUnaryClauses();
     virtual void parallelExportUnaryClause(Lit p);
     virtual void parallelExportClauseDuringSearch(Clause &c);
     virtual bool parallelJobIsFinished();
     virtual bool panicModeIsEnabled();
 
-    bool shareClause(Clause & c); // true if the clause was succesfully sent
-
-
-
+    bool shareClause(Clause &c);  // true if the clause was succesfully sent
 };
 
-
-    inline int      ParallelSolver::threadNumber  ()      const   {return thn;}
-    inline void     ParallelSolver::setThreadNumber (int i)       {thn = i;}
-}
-#endif	/* PARALLELSOLVER_H */
+inline int ParallelSolver::threadNumber() const { return thn; }
+inline void ParallelSolver::setThreadNumber(int i) { thn = i; }
+}  // namespace Glucose
+#endif /* ParallelSolver_h */

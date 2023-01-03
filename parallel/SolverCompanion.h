@@ -55,24 +55,26 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 #ifndef SolverCompanion_h
 #define SolverCompanion_h
+
 #include "mtl/Vec.h"
+
 namespace Glucose {
 
-    class ParallelSolver;
+class ParallelSolver;
 
 class SolverCompanion {
-	public:
-	SolverCompanion();
-	~SolverCompanion();
+   public:
+    SolverCompanion();
+    ~SolverCompanion();
 
-	bool addSolver(ParallelSolver* s); // attach a solver to accompany
+    bool addSolver(ParallelSolver* s);  // attach a solver to accompany
 
-	int runOnceCompanion(); // run it as a thread, but run it just once...
+    int runOnceCompanion();  // run it as a thread, but run it just once...
 
-	protected:
-	int runOnceCompanion(ParallelSolver*s); // run it only on this watched solver
-	friend class ParallelSolver;
-	vec<ParallelSolver*> watchedSolvers;
+   protected:
+    int runOnceCompanion(ParallelSolver* s);  // run it only on this watched solver
+    friend class ParallelSolver;
+    vec<ParallelSolver*> watchedSolvers;
 };
-}
+}  // namespace Glucose
 #endif
