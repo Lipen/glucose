@@ -1,4 +1,5 @@
-project('glucose', 'cpp', version : '4.2.1')
+project('glucose', 'cpp', version : '4.2.1',
+  default_options : ['cpp_std=c++11'])
 
 src = [
   'core/lcm.cc',
