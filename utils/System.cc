@@ -48,7 +48,7 @@ static inline int memReadStat(int field) {
     return value;
 }
 
-static inline int memReadPeak(void) {
+static inline int memReadPeak() {
     char name[256];
     pid_t pid = getpid();
 
@@ -67,19 +67,19 @@ static inline int memReadPeak(void) {
 }
 
 double Glucose::memUsed() { return (double)memReadStat(0) * (double)getpagesize() / (1024 * 1024); }
-double Glucose::memUsedPeak() {
+double Glucose::memUsedPeak(bool /*strictlyPeak*/) {
     double peak = memReadPeak() / 1024;
     return peak == 0 ? memUsed() : peak;
 }
 
 #elif defined(__FreeBSD__)
 
-double Glucose::memUsed(void) {
+double Glucose::memUsed() {
     struct rusage ru;
     getrusage(RUSAGE_SELF, &ru);
     return (double)ru.ru_maxrss / 1024;
 }
-double MiniSat::memUsedPeak(void) { return memUsed(); }
+double MiniSat::memUsedPeak(bool /*strictlyPeak*/) { return memUsed(); }
 
 #elif defined(__APPLE__)
 #include <malloc/malloc.h>
