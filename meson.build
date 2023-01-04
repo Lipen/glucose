@@ -2,6 +2,7 @@ project('glucose', 'cpp', version : '4.2.1',
   default_options : ['cpp_std=c++11'])
 
 src = [
+  'capi/cglucose.cc',
   'core/lcm.cc',
   'core/Solver.cc',
   'simp/SimpSolver.cc',
@@ -31,6 +32,7 @@ exe_parallel = executable('glucose-syrup', 'parallel/Main.cc',
   install : true, link_with : libp, dependencies : zdep)
 
 install_headers(
+  'capi/cglucose.h',
   'core/SolverTypes.h',
   'core/BoundedQueue.h',
   'core/Constants.h',
