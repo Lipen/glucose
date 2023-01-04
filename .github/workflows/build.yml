@@ -37,37 +37,11 @@ jobs:
       - name: Build the project using Meson
         run: meson compile -C builddir -v
 
-      # OS-specific upload:
+      - name: Install the project
+        run: meson install -C builddir --strip --destdir ../install
 
-      - name: Upload Linux package
-        if: startsWith(matrix.os, 'ubuntu')
+      - name: Upload package
         uses: actions/upload-artifact@v3
         with:
           name: package-${{ matrix.os }}
-          path: |
-            builddir/libglucose.so
-            builddir/libglucosep.so
-            builddir/glucose
-            builddir/glucose-syrup
-
-      - name: Upload Windows package
-        if: startsWith(matrix.os, 'windows')
-        uses: actions/upload-artifact@v3
-        with:
-          name: package-${{ matrix.os }}
-          path: |
-            builddir/libglucose.dll
-            builddir/libglucosep.dll
-            builddir/glucose.exe
-            builddir/glucose-syrup.exe
-
-      - name: Upload macOS package
-        if: startsWith(matrix.os, 'macos')
-        uses: actions/upload-artifact@v3
-        with:
-          name: package-${{ matrix.os }}
-          path: |
-            builddir/libglucose.dylib
-            builddir/libglucosep.dylib
-            builddir/glucose
-            builddir/glucose-syrup
+          path: install/
