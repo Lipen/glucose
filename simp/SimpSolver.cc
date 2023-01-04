@@ -686,7 +686,7 @@ cleanup:
         checkGarbage();
     }
 
-    if (verbosity >= 0 && elimclauses.size() > 0)
+    if (verbosity >= 2 && elimclauses.size() > 0)
         printf("c |  Eliminated clauses:     %10.2f Mb                                                                |\n",
                double(elimclauses.size() * sizeof(uint32_t)) / (1024 * 1024));
 
