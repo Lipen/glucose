@@ -93,6 +93,8 @@ void glucose_setIncremental(CGlucose *s) { s->setIncrementalMode(); }
 bool glucose_isIncremental(CGlucose *s) { return s->isIncremental(); }
 void glucose_set_verbosity(CGlucose *s, int v) { s->verbosity = v; }
 int glucose_get_verbosity(CGlucose *s) { return s->verbosity; }
+void glucose_set_random_var_freq(CGlucose *s, double random_var_freq) { s->random_var_freq = random_var_freq; }
+void glucose_set_random_seed(CGlucose *s, double random_seed) { s->random_seed = random_seed; }
 
 int glucose_num_assigns(CGlucose *s) { return s->nAssigns(); }
 int glucose_num_clauses(CGlucose *s) { return s->nClauses(); }
