@@ -52,8 +52,9 @@ glucose_Lit glucose_negate(glucose_Lit p) { return toInt(~toLit(p)); }
 glucose_Var glucose_var(glucose_Lit p) { return var(toLit(p)); }
 bool glucose_sign(glucose_Lit p) { return sign(toLit(p)); }
 
-void glucose_setDecisionVar(CGlucose *s, glucose_Var v, bool b) { s->setDecisionVar(v, b); }
 void glucose_setPolarity(CGlucose *s, glucose_Var v, bool b) { s->setPolarity(v, b); }
+void glucose_setDecisionVar(CGlucose *s, glucose_Var v, bool b) { s->setDecisionVar(v, b); }
+
 void glucose_setFrozen(CGlucose *s, glucose_Var v, bool b) { s->setFrozen(v, b); }
 bool glucose_isEliminated(CGlucose *s, glucose_Var v) { return s->isEliminated(v); }
 bool glucose_eliminate(CGlucose *s, bool turn_off_elim) { return s->eliminate(turn_off_elim); }

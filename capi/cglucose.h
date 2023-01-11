@@ -36,6 +36,7 @@ bool glucose_sign(glucose_Lit p);
 
 void glucose_setPolarity(CGlucose *s, glucose_Var v, bool b);
 void glucose_setDecisionVar(CGlucose *s, glucose_Var v, bool b);
+
 void glucose_setFrozen(CGlucose *s, glucose_Var v, bool b);
 bool glucose_isEliminated(CGlucose *s, glucose_Var v);
 bool glucose_eliminate(CGlucose *s, bool turn_off_elim);
