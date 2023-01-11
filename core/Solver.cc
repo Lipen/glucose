@@ -1665,8 +1665,8 @@ lbool Solver::solve_(bool do_simp, bool turn_off_simp)  // Parameters are useles
     // Search:
     int curr_restarts = 0;
     while (status == l_Undef) {
-        status = search(
-            luby_restart ? luby(restart_inc, curr_restarts) * luby_restart_factor : 0);  // the parameter is useless in glucose, kept to allow modifications
+        // the parameter is useless in glucose, kept to allow modifications:
+        status = search(luby_restart ? luby(restart_inc, curr_restarts) * luby_restart_factor : 0);
 
         if (!withinBudget()) break;
         curr_restarts++;
