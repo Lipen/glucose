@@ -76,7 +76,7 @@ void glucose_clearInterrupt(CGlucose *s);
 void glucose_setIncremental(CGlucose *s);
 bool glucose_isIncremental(CGlucose *s);
 void glucose_set_verbosity(CGlucose *s, int v);
-int glucose_get_verbosity(CGlucose *s, int v);
+int glucose_get_verbosity(CGlucose *s);
 
 int glucose_num_assigns(CGlucose *s);
 int glucose_num_clauses(CGlucose *s);
