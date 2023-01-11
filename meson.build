@@ -21,6 +21,8 @@ src_parallel = [
 zdep = dependency('zlib')
 thread_dep = dependency('threads')
 
+add_global_arguments('-DINCREMENTAL', language : 'cpp')
+
 lib = library('glucose', src,
   install : true, dependencies : [zdep, thread_dep])
 libp = library('glucosep', src, src_parallel,
