@@ -113,9 +113,9 @@ static void SIGINT_exit(int signum) {
 
 int main(int argc, char** argv) {
     try {
-        printf("c\nc This is glucose 4.2.1 -- based on MiniSAT (Many thanks to MiniSAT team)\nc\n");
+        printf("c\nc This is glucose 4.2.1 --  based on MiniSAT (Many thanks to MiniSAT team)\nc\n");
+
         setUsageHelp("c USAGE: %s [options] <input-file> <result-output-file>\n\n  where input may be either in plain or gzipped DIMACS.\n");
-        setX86FPUPrecision();
 
         // Extra options:
         //

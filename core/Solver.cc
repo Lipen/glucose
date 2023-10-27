@@ -1086,8 +1086,7 @@ CRef Solver::propagateUnaryWatches(Lit p) {
         confl = cr;
         qhead = trail.size();
         // Copy the remaining watches:
-        while (i < end)
-            *j++ = *i++;
+        while (i < end) *j++ = *i++;
 
         // We can add it now to the set of clauses when backtracking
         // printf("*");
@@ -1143,9 +1142,9 @@ void Solver::reduceDB() {
         }
     }
 
-    if (chanseokStrategy)
+    if (chanseokStrategy) {
         sort(learnts, reduceDBAct_lt(ca));
-    else {
+    } else {
         sort(learnts, reduceDB_lt(ca));
 
         // We have a lot of "good" clauses, it is difficult to compare them. Keep more !
@@ -1180,24 +1179,27 @@ void Solver::removeSatisfied(vec<CRef> &cs) {
     for (i = j = 0; i < cs.size(); i++) {
         Clause &c = ca[cs[i]];
 
-        if (satisfied(c))
-            if (c.getOneWatched())
+        if (satisfied(c)) {
+            if (c.getOneWatched()) {
                 removeClause(cs[i], true);
-            else {
-                //// simplify
+            } else {
+                // simplify
                 removeClause(cs[i]);
             }
-        else
+        } else {
             cs[j++] = cs[i];
+        }
     }
     cs.shrink(i - j);
 }
 
 void Solver::rebuildOrderHeap() {
     vec<Var> vs;
-    for (Var v = 0; v < nVars(); v++)
-        if (decision[v] && value(v) == l_Undef)
+    for (Var v = 0; v < nVars(); v++) {
+        if (decision[v] && value(v) == l_Undef) {
             vs.push(v);
+        }
+    }
     order_heap.build(vs);
 }
 

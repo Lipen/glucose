@@ -63,8 +63,6 @@ extern BoolOption opt_plingeling;                     // (_cunstable, "plingelin
 
 //=====================================================================
 
-//=====================================================================
-
 ParallelSolver::ParallelSolver(int threadId) : SimpSolver(), thn(threadId)  // The thread number of this solver
                                                ,
                                                goodlimitlbd(7),

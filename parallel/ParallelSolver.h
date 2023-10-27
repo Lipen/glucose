@@ -54,6 +54,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "core/SolverTypes.h"
 #include "parallel/SharedCompanion.h"
 #include "simp/SimpSolver.h"
+
 namespace Glucose {
 
 enum ParallelStats {
