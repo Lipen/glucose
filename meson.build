@@ -1,6 +1,17 @@
 project('glucose', 'cpp', version : '4.2.1',
   default_options : ['cpp_std=c++11'])
 
+# -------------------
+# BUILD instructions:
+#
+#   meson setup builddir --buildtype release --strip
+#
+#   meson compile -C builddir
+#
+#   meson install -C builddir
+#
+# -------------------
+
 src = [
   'capi/cglucose.cc',
   'core/lcm.cc',
