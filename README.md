@@ -2,15 +2,6 @@
 
 > This repository is a _fork_ of the original [Glucose SAT solver](https://github.com/audemard/glucose).
 
-## Changes
-
-This repository _preserves_ the original Glucose SAT solver code, but it has included some modifications to make it easier to use as a library in other projects.
-
-- Improved [CMake configuration](https://github.com/Lipen/glucose/blob/lipen/4.2.1/CMakeLists.txt) to build a shared library.
-- Added [C API](https://github.com/Lipen/glucose/blob/lipen/4.2.1/capi/cglucose.h) for easier integration with other languages.
-
-Credits to [Christoph Jabs @chrjabs](https://github.com/chrjabs/glucose4) for some parts.
-
 ## Dev branches
 
 The `fork` branch (_which you are currently looking at_) is just an empty placeholder.
@@ -24,6 +15,15 @@ git clone https://github.com/Lipen/glucose
 cd glucose
 git switch lipen/4.2.1
 ```
+
+## Changes
+
+This repository _preserves_ the original Glucose SAT solver code, but it has included some modifications to make it easier to use as a library in other projects.
+
+- Improved [CMake configuration](https://github.com/Lipen/glucose/blob/lipen/4.2.1/CMakeLists.txt) to build a shared library.
+- Added [C API](https://github.com/Lipen/glucose/blob/lipen/4.2.1/capi/cglucose.h) for easier integration with other languages.
+
+Credits to [Christoph Jabs @chrjabs](https://github.com/chrjabs/glucose4) for some parts.
 
 ## Building
 
