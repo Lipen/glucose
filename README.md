@@ -6,8 +6,8 @@
 
 This repository _preserves_ the original Glucose SAT solver code, but it has included some modifications to make it easier to use as a library in other projects.
 
-- Improved [CMake configuration](CMakeLists.txt) to build a shared library.
-- Added [C API](capi/) for easier integration with other languages.
+- Improved [CMake configuration](https://github.com/Lipen/glucose/blob/lipen/4.2.1/CMakeLists.txt) to build a shared library.
+- Added [C API](https://github.com/Lipen/glucose/blob/lipen/4.2.1/capi/cglucose.h) for easier integration with other languages.
 
 Credits to [Christoph Jabs @chrjabs](https://github.com/chrjabs/glucose4) for some parts.
 
@@ -17,7 +17,7 @@ The `fork` branch (_which you are currently looking at_) is just an empty placeh
 
 All the development is located in `lipen/<version>` branches, where `<version>` is the version tag from the original repository, upon which the changes are based.
 
-For example, to work with the forked version 4.2.1 (currently the latest upstream version), you can switch to the `lipen/4.2.1` branch.
+For example, to work with the forked version 4.2.1 (currently the latest upstream version), you can switch to the [`lipen/4.2.1`](https://github.com/Lipen/glucose/tree/lipen/4.2.1) branch.
 
 ```sh
 git clone https://github.com/Lipen/glucose
